@@ -1,0 +1,506 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+     
+    <head>
+        <script>
+        (function() {
+    if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        var msViewportStyle = document.createElement("style");
+        msViewportStyle.appendChild(
+            document.createTextNode("@-ms-viewport{width:auto!important}")
+        );
+        document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+    }
+})();
+</script>
+
+        <title>Easy-CQUPT</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="stylesheet" type="text/css" href="css/icons.css" />    
+ 
+       <!--   
+     <link rel="stylesheet" type="text/css" href="css/af.ui.css" title="default" />
+  -->
+      <link rel="stylesheet" type="text/css" href="css/main.css"  />
+      <link rel="stylesheet" type="text/css" href="css/appframework.css"  />
+      <link rel="stylesheet" type="text/css" href="css/lists.css"  />
+      <link rel="stylesheet" type="text/css" href="css/forms.css"  />
+      <link rel="stylesheet" type="text/css" href="css/buttons.css"  />        
+      <link rel="stylesheet" type="text/css" href="css/badges.css"  />        
+      <link rel="stylesheet" type="text/css" href="css/grid.css"  />
+
+      <link rel="stylesheet" type="text/css" href="css/android.css"  />
+      <link rel="stylesheet" type="text/css" href="css/win8.css"  />
+      <link rel="stylesheet" type="text/css" href="css/bb.css"  />
+      <link rel="stylesheet" type="text/css" href="css/ios.css"  />
+      <link rel="stylesheet" type="text/css" href="css/ios7.css"  />
+      <link rel="stylesheet" type="text/css" href="css/tizen.css"  />
+        
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.actionsheet.css"  />
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.popup.css"  />
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.scroller.css"  />
+      <link rel="stylesheet" type="text/css" href="plugins/css/af.selectBox.css"  />        
+        
+        <!-- uncomment for intel.xdk apps 
+        <script type="text/javascript" charset="utf-8" src="intelxdk.js"></script>
+        <script type="text/javascript" charset="utf-8" src="xhr.js"></script>
+        -->
+        
+		<script type="text/javascript" charset="utf-8" src="./appframework.min.js"></script>
+        <!--
+		<script type="text/javascript" charset="utf-8" src="jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="jq.appframework.js"></script>
+		<script type="text/javascript" charset="utf-8" src="plugins/af.desktopBrowsers.js"></script>  
+        -->
+        <script type="text/javascript" charset="utf-8">
+		    if (!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
+                var script = document.createElement("script");
+                script.src = "plugins/af.desktopBrowsers.js";
+                var tag = $("head").append(script);
+                //$.os.desktop=true;
+            }
+		</script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.actionsheet.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.css3animate.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.passwordBox.js"></script>          
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.scroller.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.selectBox.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchEvents.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchLayer.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.popup.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="./ui/appframework.ui.js"></script>
+        <!-- <script type="text/javascript" charset="utf-8" src="./ui/transitions/all.js"></script> -->
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/fade.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/flip.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/pop.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slide.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slideDown.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slideUp.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.slidemenu.js"></script>
+        
+        <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js" charset="utf-8"></script>
+        <script type="text/javascript">
+            initialize();
+        </script>
+
+        <script type="text/javascript">
+            /* This function runs once the page is loaded, but intel.xdk is not yet active */
+            //$.ui.animateHeaders=false;
+			var search="";
+			$.ui.useOSThemes=true;
+			if(localStorage.getItem('custom')){
+			     search=localStorage.getItem('custom');
+			}
+            if(search.length>0) //Android fix has too many buggy issues on iOS - can't preview with $.os.android
+            {
+
+               $.ui.useOSThemes=false;
+               $.ui.ready(function(){
+                    $("#afui").get(0).className=search;
+                });
+            }
+            
+            var webRoot = "./";
+            // $.os.android=true;
+            //$.ui.autoLaunch = false;
+            $.ui.openLinksNewTab = false;
+            $.ui.splitview=false;
+          
+            function showHide(objToHide){
+                $("#" + objToHide).toggle();
+
+            }
+        </script>
+
+</head>
+
+    <body>
+        <div id="afui">
+            <div id="content">
+            
+                <!-- 主页面   -------------------------------------------->
+                <div title='Easy-CQUPT' id="main" class="panel" selected="true" data-load="mainloaded" data-footer="none" data-nav="main_nav">
+                    <header><a href="#setting" class='button icon settings big'></a><h1>Easy-CQUPT</h1><a id="userbtn" onclick="checklogin('#main','#mypage')" style="float:right;" class="button icon user big"></a></header>
+                    <div class="banner">
+                    <img src="images/logo.png" />
+                    </div>
+                    <div class="item_value"><p onClick=showHide('news_list')>重邮头条</p><a href="#news">查看更多</a></div>
+                    <ul id="news_list" class="list listview">
+                      
+                    </ul>
+                    <div class="item_value"><p onClick=showHide('lost_found_list')>失物招领</p><a href="#lost_found">查看更多</a></div>
+                    <ul id="lost_found_list" class="list listview">
+                    </ul>
+                    <div class="item_value"><p onClick=showHide('second_hand_list')>二手市场</p><a href="#second_hand">查看更多</a></div>
+                    <ul id="second_hand_list" class="list listview">
+                    </ul>
+                    <div class="item_value"><p onClick=showHide('tao_cqupt_list')>淘重邮</p><a href="#tao_cqupt">查看更多</a></div>
+                    <ul id="tao_cqupt_list" class="list listview">
+                    </ul>
+                    <div class="item_value"><p onClick=showHide('interest_list')>兴趣圈</p><a href="#interest">查看更多</a></div>
+                    <ul id="interest_list" class="list listview">
+                    </ul>
+                 </div>
+				 
+                 <!--设置-------------->
+                  <div title='设置' id="setting" class="panel" data-footer="none" data-nav="main_nav">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>个人设置</h1></header>
+                    <ul class="list">
+					   <li class="divider">界面风格</li>
+					   <li onclick="set('ios')">ios</li>
+					   <li onclick="set('ios7')">ios7</li>
+					   <li onclick="set('win8')">win8</li>
+					   <li onclick="set('android')">android</li>
+					   <li onclick="set('tizen')">tizen</li>
+					</ul>
+                  </div>
+				  
+                 <!--登录-------------->
+                  <div title='登录' id="login" class="panel" data-load="loginload" data-footer="none" data-nav="main_nav">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>登录</h1></header>
+                    <form id="login_form">
+                        <div class="input-group">
+                            <span class="login_res"></span>
+                            <input type="text" id="loginname" name="name" placeholder="*用户名">
+                            <input type="password" id="loginpsw" name="password" placeholder="*密码">
+                            <input id="autologin" type="checkbox" name="autologin"><label for="autologin">自动登录</label>
+                            <input id="remember" type="checkbox" name="remember"><label for="remember">记住密码</label>
+                        </div>
+                            <a onclick=login("login_form") class="button block">登录</a><a href="#register" class="button block">注册</a>
+                    </form>
+                  </div>
+                  
+                  <!--注册-------------->
+                  <div title='Easy-CQUPT' id="register" class="panel" data-footer="none" data-nav="main_nav">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>注册新用户</h1></header>
+                    <form id="register_form">
+                        <div class="input-group">
+                            <span class="register_res"></span>
+                            <input type="text" name="name" placeholder="*用户名">
+                            <input type="password" name="password" placeholder="*密码">
+                            <input type="password" name="password2" placeholder="*再次输入密码">
+                            <input type="tel" name="tel" placeholder="*手机号">
+                            <select name="ifreadtel">
+                             <option value="1" selected>在个人资料中显示号码，方便别人联系你</option>
+                             <option value="0">不公布号码</option>
+                           </select>
+						    <input type="text" name="yikatong" placeholder="一卡通统一认证码，系统会通知你当别人拾到你的一卡通并发布在了招领处">
+                            <input type="text" name="qq" placeholder="QQ号">
+                            <input type="hidden" name="imageurl" value="">
+                        </div>
+                            <a onclick=register("register_form") class="button block">注册</a>
+                    </form>
+                  </div>
+                  
+                  <!--个人中心-------------->
+                  <div title='个人中心' id="mypage" data-load="mypageload" class="panel" data-tab="personnal" data-nav="main_nav">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>个人中心</h1></header>
+                    <div id="personnal_div">
+                    当前登录用户：<span id="mypage_name"></span>  &nbsp;&nbsp;<a onClick="loginout()" class="red">注销</a>
+                    </br></br>
+                    <form id="mypage_form">
+                    <div class="input-group">
+                         手机号：<input id="mypage_tel" type="tel" name="tel">
+                         QQ：<input id="mypage_qq" type="text" name="qq">
+                         一卡通统一认证码：<input id="mypage_yikatong" type="text" name="yikatong">
+                         <input id="mypage_read_tel" type="checkbox"><label for="mypage_read_tel">公布手机号</label>
+                         </div>
+                    </form>
+                    <a onClick="change_tel('mypage_form')" class="button block">修改</a>
+                    </div>
+                    <div id="message_div" style="display:none;">
+                       消息中心
+                    </div>
+					<div id="acticity_div" style="display:none;">
+					  我参与的活动
+					</div>
+                    <footer>
+					<a onClick="$('#personnal_div').show();$('#message_div').hide();$('#acticity_div').hide();" id="personnal" class="icon user">个人资料</a>
+					<a onClick="$('#personnal_div').hide();$('#message_div').hide();$('#acticity_div').show();" id="message_center" class="icon mail">活动中心</a>
+					<a onClick="$('#personnal_div').hide();$('#message_div').show();$('#acticity_div').hide();" id="message_center" class="icon mail">消息中心</a>
+					</footer>
+                  </div>
+                  
+                  <!--重邮头条-------------->
+                  <div title='重邮头条' id="news" class="panel" data-load="newsload" data-footer="none">
+                    <header><a id="backButton" href="#main" class='button'>Back</a><h1>重邮头条</h1><a onClick="newfresh()" style="float:right;" class='button icon refresh big'></a></header>
+                    <ul id="news_lists" class="list listview">
+                    </ul>
+                    <p id="news_page" style="display:none;">2</p>
+                    <a id="news_next_btn" onClick="loadmorenews('news_page')" class="button block">加载下一页</a>
+                  </div>
+                  
+                  <!--新闻-------------->
+                  <div title='新闻' id="news_view" class="panel" data-load="loadnews" data-footer="coment_footer" data-nav="main_nav">
+                    <header><a id="backButton" href='#news' class='button'>Back</a><h1 id="news_title"></h1><a id="news_count" href="#coment" style="float:right;" class="button"></a></header>
+                    <div id="news_content"></div>
+                  </div>
+                  
+                  <!--跟帖-------------->
+                  <div title='跟帖' id="coment" class="panel" data-load="loadcoment" data-footer="coment_footer" data-nav="main_nav">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>跟帖</h1></header>
+                    <ul id="coment_list" class="list coment_list">
+                    </ul>
+                    <p id="coment_page" style="display:none;">2</p>
+                    <a id="coment_btn" onClick="loadmorecoment('coment_page')" class="button block">加载更多</a>
+                  </div>
+                  
+                  <!--失物招领-------------->
+                  <div title='失物招领' id="lost_found" data-load="load_lost" class="panel" data-nav="main_nav">
+                    <header id="lost_found_header"><a id="backButton" href="#main" class='button'>Back</a><h1>失物招领</h1><a id="userbtn" onclick="checklogin('#main','#mypage')" style="float:right;" class="button icon user big"></a></header>
+                    <div id="search"><input type="text" id="search_input" placeholder="先搜索一下吧"><a onClick="search_btn('search_input')" id="search_btn" class="button icon magnifier big"></a></div>
+                    <div id="select_item">
+                    <div id="switch"><input onChange="change_lost()" id="toggle1" type="checkbox" name="toggle1" class="toggle"><label for="toggle1" data-on="Found" data-off="Lost"><span></span></label></div>
+                    <div  id="select"><select onChange="change_lost()" id="lost_items">
+                        <option value="all" selected>所有分类</option>
+                        <option value="电子">电子</option>
+                        <option value="文具">文具</option>
+                        <option value="运动">运动</option>
+                        <option value="宠物">宠物</option>
+                    </select></div>
+                    <div id="special"><a href="#yikatong">一卡通</a><a href="#">身份证</a><a href="#">钱包</a></div>
+                    </div>
+                    
+                    <ul id="main_lost_found_list" class="list listview">                       
+                    </ul>
+                    <p id="lost_found_page" style="display:none;">2</p>
+                    <a id="lost_found_page_btn" onClick="loadmore('lost_found_page','lost_found')" class="button block">加载下一页</a>
+                    <footer><a onClick="checklogin('#lost_found','#add_lost_found')" class="button block">发布</a></footer>
+                  </div>
+                  
+                  <!--发布失物招领-------------->
+                  <div title='发布' id="add_lost_found" class="panel" data-nav="main_nav">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>发布</h1></header>
+                    <form id="lost_release_form">
+                       <div class="input-group">
+                           <span class="lost_release_res"></span>
+                           <select name="type">
+                             <option value="lost" selected>失物</option>
+                             <option value="found">招领</option>
+                           </select>
+                           <input type="text" name="values" placeholder="*物品名">
+                           <select name="items">
+                             <option value="电子">电子</option>
+                             <option value="文具">文具</option>
+                             <option value="运动">运动</option>
+                             <option value="宠物">宠物</option>
+                           </select>
+                           <input type="text" name="color" value="" placeholder="颜色">
+                           <input type="text" name="about" value="" placeholder="描述">
+                           <select name="ifreadtel">
+                             <option value="1" selected>公布号码，如之前号码有误可发布后再修改</option>
+                             <option value="0">不公布号码</option>
+                           </select>
+                           <input type="hidden" id="lost_image_url" name="imageurl" value="">
+                       </div>
+                       <a class="button" onClick="getpicture('lost_found')">选择照片</a>
+                       <div class="hide">
+                       <div class="image"><img src="" id="lost_image_bar"/></div>
+                       <a class="button block icon upload" onClick="uploadtx()">上传</a>
+                       </div>
+                    </form>
+                    <footer><a onClick="lost_found_release('lost_release_form')" class="button block">发布</a></footer>
+                  </div>
+                  <!--一卡通-------------->
+                  <div title='一卡通' id="yikatong" class="panel">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>是你的一卡通</h1></header>
+					</br>
+					<div id="news_footer"><input id="ykt_id" type="text" value="" placeholder="按统一识别码查找"><a onClick="onyikatongsearch('ykt_id')" class="button">查找</a></div>
+					<div id="news_footer"><input id="name" type="text" value="" placeholder="按名字查找"><a onClick="onyikatongsearch('name')" class="button">查找</a></div>
+					<ul id="yikatong_list" class="otherlistview list">
+					</ul>
+					<footer><a onClick="checklogin('#yikatong','#yikatong_release')" class="button block">发布</a></footer>
+				  </div>
+ 
+                  <!--一卡通发布-------------->
+                  <div title='一卡通' id="yikatong_release" class="panel">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>是你的一卡通</h1></header>
+					<form id="yikatong_release_form">
+					    <div class="input-group">
+                           <span class="yikatong_release_res"></span>
+						   <select name="items">
+                             <option value="遗失中">失物</option>
+                             <option value="待领取">招领</option>
+                           </select>
+						   <input type="text" name="name" value="" placeholder="*名字">
+						   <input type="text" name="tongyi" value="" placeholder="*统一认证码">
+						</div>
+					</form>
+					<footer><a onClick="yikatong_release('yikatong_release_form')" class="button block">发布</a></footer>
+				  </div>				  
+				
+				  <!--一卡通发布匹配结果-------------->
+                  <div title='一卡通' id="yikatong_release_res" data-load="yikatong_pipei" data-footer="none" class="panel">
+                    <header><a id="backButton" href="#lost_found" class='button'>Back</a><h1>是他/她的一卡通</h1></header>
+					</br>
+					<h1>可能是他/她的一卡通哦，早点解救着急的他/她吧</h1>
+					<ul id="yikatong_release_res_list" class="otherlistview list">
+					</ul>
+				  </div>
+				
+                  <!--二手市场-------------->
+                  <div title='二手市场' id="second_hand" class="panel" data-load="load_second_hand" data-nav="main_nav">
+                    <header><a id="backButton" href="#main" class='button'>Back</a><h1>二手市场</h1></header>
+                    <div id="search"><input type="text" id="second_search_input" placeholder="先搜索一下吧"><a onClick="search_btn('second_search_input')" id="search_btn" class="button icon magnifier big"></a></div>
+                    <select onChange="change_second()" id="second_items">
+                        <option value="all" selected>所有分类</option>
+                        <option value="电子">电子</option>
+                        <option value="文具">文具</option>
+                        <option value="运动器械">运动器械</option>
+                        <option value="二手书">二手书</option>
+                    </select>
+                    <ul id="second_hand_lists" class="list listview">
+                    </ul>
+                    <p id="second_hand_page" style="display:none;">2</p>
+                    <a id="second_hand_page_btn" onClick="loadmore('second_hand_page','second_hand')" class="button block">加载下一页</a>
+                    <footer><a onClick="checklogin('#second_hand','#second_hand_release')" class="button block">发布</a></footer>
+                  </div>
+                  <!--二手市场发布-------------->
+                  <div title='二手市场' id="second_hand_release" class="panel" data-nav="main_nav">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>发布物品</h1></header>
+                    <form id="second_hand_form">
+                       <div class="input-group">
+                          <span class='second_hand_res'></span>
+                          <input type="text" name="values" placeholder="*物品名">
+                          <select name="items">
+                             <option value="电子">电子</option>
+                             <option value="文具">文具</option>
+                             <option value="体育器械">体育器械</option>
+                             <option value="二手书">二手书</option>
+                           </select>
+                           <input type="text" name="price" value="面谈" placeholder="价格">
+                           <textarea rows="3" placeholder="*介绍一下你的物品" name="about" value=""></textarea>
+                           <input type="hidden" id="second_image1_input" name="imageurl1" value="">
+                           <input type="hidden" id="second_image2_input" name="imageurl2" value="">
+                       </div>
+                    </form>
+                    <a class="button" onClick="getpicture('second_hand')">选择照片</a>
+                       <div class="hide">
+                       <div class="image"><img src="" id="second_image_bar"/></div>
+                       <a class="button block icon upload" onClick="uploadtx()">上传</a>
+                       </div>
+                    <footer><a onClick="second_hand_release('second_hand_form')" class="button block">发布</a></footer>
+                  </div>
+                  
+                  
+                  <!--淘重邮-------------->
+                  <div title='淘重邮' id="tao_cqupt" class="panel" data-nav="main_nav">
+                    <header><a id="backButton" href="#main" class='button'>Back</a><h1>淘重邮</h1></header>
+                    
+                    <footer><a style="height:43px;line-height:43px;font-size:14px;">想开店吗，请发邮件至txrjxh@sina.com申请</a></footer>
+                  </div>
+                  
+                  <!--兴趣圈-------------->
+                  <div title='兴趣圈' id="interest" class="panel" data-load="interestload" data-nav="main_nav">
+                    <header><a id="backButton" href="#main" class='button'>Back</a><h1>兴趣圈</h1></header>
+                    <div class="item_value"><p onClick=showHide('my_interest_list')>我关注的兴趣圈</p><a class="icon refresh" onClick="my_interest()"></a></div>
+                    <ul id="my_interest_list" class="list listview"> 
+                    </ul>
+                    </br></br></br>
+                    <div id="search"><input type="text" id="interest_search_input" placeholder="搜索"><a onClick="search_btn('interest_search_input')" id="search_btn" class="button icon magnifier big"></a></div>
+                    <ul id="interest_lists" class="list listview">
+                    </ul>
+                    <p id="interest_page" style="display:none;">2</p>
+                    <a id="interest_page_btn" onClick="loadmore('interest_page','interest')" class="button block">加载下一页</a>
+                    <footer><a class="button block" onClick="checklogin('#interest','#create_interest')">创建兴趣圈</a></footer>
+                  </div>
+                  <!--创建兴趣圈-------------->
+                  <div title='创建兴趣圈' id="create_interest" class="panel" data-nav="main_nav">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>创建兴趣圈</h1></header>
+                    <form id="create_interest_form">
+                       <div class="input-group">
+                          <span class='create_interest_res'></span>
+                          <input type="text" name="values" placeholder="*兴趣圈圈名">
+                          <textarea rows="3" placeholder="*简介" name="about" value=""></textarea>
+						  <textarea rows="3" placeholder="公告" name="notice" value=""></textarea>
+                       </div>
+                    </form>
+                    <footer><a onClick="create_interest('create_interest_form')" class="button block">发布</a></footer>
+                  </div>
+                  <!--兴趣圈----------------------->
+                   <div title='进圈' id="interest_view" class="panel" data-load="interestviewload" data-nav="main_nav">
+                    <header><a id="backButton" href="#interest" class='button'>Back</a><h1 id="interest_name"></h1><a style="float:right;color:red;" onclick="join_interest()" id="ifjoin_interest" class="button"></a></header>
+                    <h2 class='expanded' onclick=showHide('interest_notice')>公告</h2>
+                    <p id="interest_notice"></p>
+                    <ul id="interest_article_list" class="articlelist list">
+                
+                    </ul>
+                    <p id="interest_article_page" style="display:none;">2</p>
+                    <a id="interest_article_page_btn" onClick="loadmore('interest_article_page','interest_article')" class="button block">加载下一页</a>
+                    <footer><a onclick="interest_release_btn()" class="button block">发帖</a></footer>
+                  </div>
+                  <!--兴趣圈发帖-------------->
+                  <div title='兴趣圈发帖' id="interest_release" class="panel" data-nav="main_nav">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>发帖</h1></header>
+                    <form id="interest_release_form">
+                       <div class="input-group">
+                          <span class='interest_release_res'></span>
+                          <input type="text" name="theme" placeholder="*主题">
+						  <input type="text" name="about" placeholder="摘要">
+                          <textarea rows="10" placeholder="*内容" name="content" value=""></textarea>
+                       </div>
+                    </form>
+                    <footer><a onClick="interest_release('interest_release_form')" class="button block">发布</a></footer>
+                  </div>
+				  <!--兴趣圈文章查看-------------->
+                  <div title='兴趣圈文章' id="interest_article_view" data-load="interest_article_load" class="panel" data-footer="interest_footer">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1 id="interest_article_title"></h1><a href="#interest_article_coment_view" style="float:right;" id="interest_article_coment" class="button"></a></header>
+                    <p id="interest_article_author"></p>
+					<div id="interest_article_content"></div>
+					<p><a onclick="article_zan(true)" class="button icon star">对我有用</a><a onclick="article_zan(false)" class="button icon trash">没有营养</a><a class="button icon heart">收藏</a></p>
+                  </div>
+				  <!---兴趣圈文章评论--------------------------->
+				  <div title='兴趣圈文章评论' id="interest_article_coment_view" data-load="interest_article_coment_view_load" class="panel" data-footer="interest_footer">
+                    <header><a id="backButton" onclick="$.ui.goBack()" class='button'>Back</a><h1>评论</h1></header>
+                    <ul id="interest_article_coment_list" class="comentsview list">
+					
+					</ul>
+					<p id="interest_article_coment_page" style="display:none;">2</p>
+                    <a id="interest_article_coment_page_btn" onClick="loadmore('interest_article_coment_page','interest_article_coment')" class="button block">加载下一页</a>
+                  </div>
+                  <!--通信软件协会-------------->
+                  <div title='通信软件协会' id="txrjxh" class="panel" data-footer="none" data-nav="main_nav">
+                    <header><a id="backButton" href="#main" class='button'>Back</a><h1>通信软件协会</h1></header>
+                    
+                  </div>
+                  
+                  
+                  <!--footer--------------------->
+                  <footer id="coment_footer"><div id="news_footer"><input id="coment_input" type="text" value="" placeholder="写跟帖"><a onClick="oncoment()" class="button">发布</a></div></footer>
+                  <footer id="interest_footer"><div id="news_footer"><input id="article_coment_input" type="text" value="" placeholder="写评论"><a onClick="onarticlecoment('article_coment_input')" class="button">回复</a></div></footer>
+                  
+                  <!----------nav----------->
+            <nav id="main_nav">
+                 <ul class="list">
+                    <li>
+                       <a href="#news">重邮头条</a>
+                    </li>
+                    <li>
+                       <a href="#second_hand">二手市场</a>
+                    </li>
+                    <li>
+                       <a href="#lost_found">失物招领</a>
+                    </li>
+                    <li>
+                       <a href="#tao_cqupt">淘重邮</a>
+                    </li>
+                    <li>
+                       <a href="#interest">兴趣圈</a>
+                    </li>
+                    <li>
+                       <a href="#txrjxh">通信软件协会</a>
+                    </li>
+                 </ul>
+            </nav> 
+            </div><!-- content      -->
+       </div>  <!-- afui       -->
+    </body>
+</html>
